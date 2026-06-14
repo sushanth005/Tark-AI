@@ -22,7 +22,7 @@ export default function History() {
 
   const fetchHistory = useCallback(async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/scan', {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/scan`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setHistory(res.data);
@@ -41,11 +41,11 @@ export default function History() {
     if (!element) return;
 
     const options = {
-      margin:       [10, 10, 10, 10],
-      filename:     `ATS-Evaluation-Report-${result.filename || 'Resume'}.pdf`,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true, logging: false },
-      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      margin: [10, 10, 10, 10],
+      filename: `ATS-Evaluation-Report-${result.filename || 'Resume'}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     html2pdf().set(options).from(element).save();
@@ -56,7 +56,7 @@ export default function History() {
     setGeneratingCL(true);
     setShowCLModal(true);
     try {
-      const res = await axios.post(`http://localhost:5000/api/scan/generate-cover-letter/${result._id}`, {}, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/scan/generate-cover-letter/${result._id}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCoverLetter(res.data.coverLetter);
@@ -75,7 +75,7 @@ export default function History() {
       sections: [
         {
           properties: {},
-          children: coverLetter.split('\n').map(line => 
+          children: coverLetter.split('\n').map(line =>
             new Paragraph({
               children: [new TextRun(line)],
             })
@@ -94,7 +94,7 @@ export default function History() {
       <Navbar />
 
       <main className="flex-1 max-w-7xl mx-auto mt-8 w-full grid grid-cols-1 lg:grid-cols-3 gap-8 px-4 sm:px-6 mb-12 relative z-10">
-        
+
         {/* Historical Logs List */}
         <div className="lg:col-span-1 bg-slate-900/50 backdrop-blur-xl p-6 rounded-3xl border border-slate-800/50 shadow-xl h-fit">
           <h4 className="text-xl font-bold text-slate-200 mb-6 flex items-center gap-3">
@@ -132,13 +132,13 @@ export default function History() {
             <div className="space-y-6">
               {/* Floating Trigger Control Block */}
               <div className="flex justify-end gap-3">
-                <button 
+                <button
                   onClick={handleGenerateCL}
                   className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2.5 rounded-xl text-sm font-medium shadow-sm transition border border-slate-700/50"
                 >
                   <PenTool size={16} className="text-purple-400" /> Generate Cover Letter
                 </button>
-                <button 
+                <button
                   onClick={downloadPDF}
                   className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium shadow-lg shadow-indigo-500/20 transition"
                 >
@@ -155,13 +155,13 @@ export default function History() {
                   </div>
                   <div className="text-right flex items-center gap-2">
                     <div className="relative w-28 h-28">
-                      <RadialBarChart 
-                        width={112} 
-                        height={112} 
-                        innerRadius="75%" 
-                        outerRadius="100%" 
-                        data={[{ name: 'Score', value: result.overallScore, fill: '#6366f1' }]} 
-                        startAngle={90} 
+                      <RadialBarChart
+                        width={112}
+                        height={112}
+                        innerRadius="75%"
+                        outerRadius="100%"
+                        data={[{ name: 'Score', value: result.overallScore, fill: '#6366f1' }]}
+                        startAngle={90}
                         endAngle={-270}
                       >
                         <PolarAngleAxis type="number" domain={[0, 100]} angleAxisId={0} tick={false} />
@@ -283,7 +283,7 @@ export default function History() {
                 <XCircle size={24} />
               </button>
             </div>
-            
+
             <div className="p-6 flex-1 overflow-y-auto bg-slate-900">
               {generatingCL ? (
                 <div className="flex flex-col items-center justify-center py-16 text-slate-400">
@@ -302,8 +302,8 @@ export default function History() {
               <button onClick={() => setShowCLModal(false)} className="px-5 py-2.5 text-sm font-medium text-slate-400 hover:text-slate-200 transition">
                 Close
               </button>
-              <button 
-                onClick={downloadCoverLetter} 
+              <button
+                onClick={downloadCoverLetter}
                 disabled={generatingCL || !coverLetter}
                 className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:shadow-indigo-500/40 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
