@@ -47,7 +47,7 @@ export default function Register() {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium text-slate-300">Full Name</label>
-                <input type="text" required value={name} onChange={e => setName(e.target.value)} className="mt-1 block w-full p-3 bg-slate-950/50 border border-slate-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-200 placeholder-slate-500 transition" placeholder="John Doe" />
+                <input type="text" required value={name} onChange={e => setName(e.target.value)} className="mt-1 block w-full p-3 bg-slate-950/50 border border-slate-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-200 placeholder-slate-500 transition" placeholder="Sushanth Bandari" />
               </div>
 
               <div>
