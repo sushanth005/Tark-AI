@@ -24,6 +24,8 @@ Job seekers struggle to get past automated Applicant Tracking Systems (ATS). Thi
 - **Tailored Cover Letter Generation**: One-click generation of professional cover letters that dynamically merge your parsed resume history with the employer's exact job requirements.
 - **Export & Download**: Export your beautiful ATS analysis report as a sleek PDF, and download your generated Cover Letter as an editable `.docx` file.
 - **Secure Assessment History**: Fully authenticated user accounts safely store past resume scans in MongoDB for future reference and comparison.
+- **Dynamic Theme & Animations**: Automatic Light/Dark mode detection seamlessly adapts the entire UI based on your system preferences, enhanced by smooth micro-animations and gradients for a premium feel.
+- **Robust UX & Routing**: Includes comprehensive loading states for asynchronous tasks, contextual confirmation modals, and robust SPA routing configuration (Vercel/Netlify) to prevent 404 errors on reload.
 
 ## 🛠 Architecture & Tech Stack
 

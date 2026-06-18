@@ -33,7 +33,7 @@ Currently, the frontend points to `http://localhost:5000` to communicate with th
 ```bash
 git add .
 git commit -m "Update API URLs for production deployment"
-git push
+l
 ```
 
 ## Phase 3: Deploy Backend on Render
