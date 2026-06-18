@@ -1,11 +1,12 @@
-import { useState, useEffect, useContext, useRef, useCallback } from 'react';
+import { useState, useContext, useRef } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { UploadCloud, FileText, CheckCircle, XCircle, Download, PenTool } from 'lucide-react';
+import { UploadCloud, FileText, CheckCircle, XCircle, Download, PenTool, History as HistoryIcon } from 'lucide-react';
 import html2pdf from 'html2pdf.js';
 import { RadialBarChart, RadialBar, PolarAngleAxis } from 'recharts';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -16,7 +17,6 @@ export default function Dashboard() {
   const [jobRole, setJobRole] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
-  const [history, setHistory] = useState([]);
   const [coverLetter, setCoverLetter] = useState('');
   const [generatingCL, setGeneratingCL] = useState(false);
   const [showCLModal, setShowCLModal] = useState(false);
@@ -24,22 +24,6 @@ export default function Dashboard() {
   // Reference pointer for targeting the PDF print zone
   const reportRef = useRef(null);
   const clRef = useRef(null);
-
-  const fetchHistory = useCallback(async () => {
-    try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/scan`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setHistory(res.data);
-    } catch (err) {
-      console.error('Error fetching history:', err);
-    }
-  }, [token]);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchHistory();
-  }, [fetchHistory]);
 
   const handleAnalyze = async (e) => {
     e.preventDefault();
@@ -60,7 +44,6 @@ export default function Dashboard() {
       });
       setResult(res.data);
       setCoverLetter(''); // Reset cover letter for new analysis
-      fetchHistory();
     } catch (err) {
       alert(err.response?.data?.error || 'Analysis execution error.');
     } finally {
@@ -406,42 +389,12 @@ export default function Dashboard() {
               </div>
             </div>
           ) : (
-            <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-16 text-center text-slate-500 shadow-xl flex flex-col items-center justify-center min-h-[400px]">
-              <div className="w-20 h-20 bg-slate-800/50 rounded-full flex items-center justify-center mb-6">
-                <FileText size={32} className="text-slate-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-slate-300">No Assessment Loaded</h3>
-              <p className="text-sm text-slate-500 max-w-sm mt-2">Configure parameters and run the analysis pipeline to generate detailed assessment reports.</p>
+            <div className="flex flex-col items-center justify-center h-full min-h-[400px]">
+              <Link to="/history" className="flex items-center gap-3 bg-slate-900/50 hover:bg-slate-800/80 text-slate-300 px-8 py-4 rounded-2xl text-base font-medium shadow-xl transition border border-slate-800/50">
+                <HistoryIcon size={20} className="text-indigo-400" /> View Past Assessments
+              </Link>
             </div>
           )}
-
-          {/* Historical Log Records Container */}
-          <div className="bg-slate-900/50 backdrop-blur-xl p-6 rounded-3xl border border-slate-800/50 shadow-xl">
-            <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4 flex items-center gap-2">
-              Historical Logs
-            </h4>
-            <div className="space-y-3 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-              {history.map((scan, idx) => (
-                <div key={idx} className="flex justify-between items-center p-3.5 bg-slate-950/50 border border-slate-800/80 rounded-xl hover:border-indigo-500/50 hover:bg-slate-800/50 transition cursor-pointer" onClick={() => { setResult(scan); setCoverLetter(scan.coverLetter || ''); }}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-slate-800/80 flex items-center justify-center">
-                      <FileText size={18} className="text-slate-400" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-slate-200 max-w-[200px] sm:max-w-xs truncate">{scan.filename}</p>
-                      <p className="text-xs text-slate-500 mt-0.5">{new Date(scan.createdAt).toLocaleDateString()}</p>
-                    </div>
-                  </div>
-                  <div className="text-base font-bold text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-lg">{scan.overallScore}%</div>
-                </div>
-              ))}
-              {history.length === 0 && (
-                <div className="text-center py-8">
-                  <p className="text-sm text-slate-500">No historical data logs recorded yet</p>
-                </div>
-              )}
-            </div>
-          </div>
         </div>
       </main>
 

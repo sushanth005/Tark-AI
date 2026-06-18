@@ -257,12 +257,8 @@ export default function History() {
               </div>
             </div>
           ) : (
-            <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800/50 rounded-3xl p-16 text-center text-slate-500 shadow-xl flex flex-col items-center justify-center min-h-[400px]">
-              <div className="w-20 h-20 bg-slate-800/50 rounded-full flex items-center justify-center mb-6">
-                <FileText size={32} className="text-slate-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-slate-300">No Assessment Loaded</h3>
-              <p className="text-sm text-slate-500 max-w-sm mt-2">Configure parameters and run the analysis pipeline to generate detailed assessment reports.</p>
+            <div className="flex flex-col items-center justify-center h-full min-h-[400px]">
+               <p className="text-slate-500 font-medium">Select a historical assessment from the list to view its details.</p>
             </div>
           )}
         </div>
