@@ -29,34 +29,34 @@ export default function Register() {
   return (
     <>
       {/* Background Gradients */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-600/10 blur-[100px] rounded-full pointer-events-none"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 dark:bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none transition-colors duration-1000"></div>
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-500/10 dark:bg-purple-600/10 blur-[100px] rounded-full pointer-events-none transition-colors duration-1000"></div>
 
-      <div className="flex-1 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative z-10">
-        <div className="sm:mx-auto w-full max-w-md text-center">
+      <div className="flex-1 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative z-10 animate-fade-in">
+        <div className="sm:mx-auto w-full max-w-md text-center animate-slide-up">
           <div className="inline-flex items-center justify-center mb-6">
             <img src="/logo.png" alt="Tark AI Logo" className="w-16 h-16 object-contain" />
           </div>
-          <h2 className="text-3xl font-extrabold tracking-tight text-white">Create your account</h2>
-          <p className="mt-2 text-sm text-slate-400">Get access to professional profile metrics</p>
+          <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Create your account</h2>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Get access to professional profile metrics</p>
         </div>
 
-        <div className="mt-8 sm:mx-auto w-full max-w-md">
-          <div className="bg-slate-900/50 backdrop-blur-xl py-8 px-4 shadow-xl border border-slate-800/50 sm:rounded-3xl sm:px-10">
+        <div className="mt-8 sm:mx-auto w-full max-w-md animate-slide-up" style={{ animationDelay: '100ms' }}>
+          <div className="bg-white dark:bg-slate-900/50 backdrop-blur-xl py-8 px-4 shadow-sm dark:shadow-xl border border-slate-200 dark:border-slate-800/50 sm:rounded-3xl sm:px-10">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label className="block text-sm font-medium text-slate-300">Full Name</label>
-                <input type="text" required value={name} onChange={e => setName(e.target.value)} className="mt-1 block w-full p-3 bg-slate-950/50 border border-slate-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-200 placeholder-slate-500 transition" placeholder="Enter your Full Name here" />
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</label>
+                <input type="text" required value={name} onChange={e => setName(e.target.value)} className="mt-1 block w-full p-3 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 transition" placeholder="Enter your Full Name here" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Email Address</label>
-                <input type="email" required value={email} onChange={e => setEmail(e.target.value)} className="mt-1 block w-full p-3 bg-slate-950/50 border border-slate-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-200 placeholder-slate-500 transition" placeholder="Enter your mail address here" />
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Email Address</label>
+                <input type="email" required value={email} onChange={e => setEmail(e.target.value)} className="mt-1 block w-full p-3 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 transition" placeholder="Enter your mail address here" />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Password</label>
-                <input type="password" required value={password} onChange={e => setPassword(e.target.value)} className="mt-1 block w-full p-3 bg-slate-950/50 border border-slate-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-200 placeholder-slate-500 transition" placeholder="Enter your password here" />
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
+                <input type="password" required value={password} onChange={e => setPassword(e.target.value)} className="mt-1 block w-full p-3 bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-slate-900 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 transition" placeholder="Enter your password here" />
               </div>
 
               <button type="submit" disabled={isLoading} className="w-full flex justify-center py-3 px-4 rounded-xl shadow-lg shadow-indigo-500/25 text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:shadow-indigo-500/40 transition disabled:opacity-70 disabled:cursor-not-allowed">
@@ -74,9 +74,9 @@ export default function Register() {
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm text-slate-400">
+            <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
               Already have an account?{' '}
-              <Link to="/login" className="font-medium text-indigo-400 hover:text-indigo-300 transition">Sign in instead</Link>
+              <Link to="/login" className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition">Sign in instead</Link>
             </p>
           </div>
         </div>

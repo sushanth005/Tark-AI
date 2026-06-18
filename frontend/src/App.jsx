@@ -21,13 +21,13 @@ function MainAppRoutes() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-slate-950 font-sans text-slate-50 selection:bg-indigo-500/30 flex flex-col relative overflow-hidden">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-50 selection:bg-indigo-500/30 flex flex-col relative overflow-hidden transition-colors duration-300">
         <Navbar />
         
         {loading ? (
-          <div className="flex-1 flex flex-col items-center justify-center relative z-10">
-            <div className="animate-spin w-12 h-12 border-4 border-slate-800 border-t-indigo-500 rounded-full mb-4"></div>
-            <p className="text-slate-400 font-medium">Loading Application Data...</p>
+          <div className="flex-1 flex flex-col items-center justify-center relative z-10 animate-fade-in">
+            <div className="animate-spin w-12 h-12 border-4 border-slate-200 dark:border-slate-800 border-t-indigo-500 dark:border-t-indigo-500 rounded-full mb-4"></div>
+            <p className="text-slate-500 dark:text-slate-400 font-medium">Loading Application Data...</p>
           </div>
         ) : (
           <Routes>
