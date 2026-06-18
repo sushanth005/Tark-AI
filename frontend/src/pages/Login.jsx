@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { Sparkles } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -34,8 +33,8 @@ export default function Login() {
 
       <div className="flex-1 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative z-10 animate-fade-in">
         <div className="sm:mx-auto w-full max-w-md text-center animate-slide-up">
-          <div className="inline-flex items-center justify-center p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg shadow-indigo-500/20 text-white mb-6">
-            <Sparkles size={32} />
+          <div className="inline-flex items-center justify-center mb-6">
+            <img src="/logo.png" alt="Tark AI Logo" className="w-16 h-16 object-contain" />
           </div>
           <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Sign in to your account</h2>
           <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Optimize your resume against ATS matching algorithms</p>
