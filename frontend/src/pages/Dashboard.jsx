@@ -7,8 +7,6 @@ import { RadialBarChart, RadialBar, PolarAngleAxis } from 'recharts';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 export default function Dashboard() {
   const { token } = useContext(AuthContext);
@@ -156,9 +154,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-50 selection:bg-indigo-500/30 flex flex-col">
-      <Navbar />
-
+    <>
       <main className="flex-1 max-w-7xl mx-auto mt-8 w-full grid grid-cols-1 lg:grid-cols-3 gap-8 px-4 sm:px-6 mb-12 relative z-10">
         {/* Input panel form layout */}
         <div className="lg:col-span-1 bg-slate-900/50 backdrop-blur-xl p-6 rounded-3xl border border-slate-800/50 shadow-xl h-fit relative overflow-hidden">
@@ -443,7 +439,6 @@ export default function Dashboard() {
           </div>
         </div>
       )}
-      <Footer />
-    </div>
+    </>
   );
 }

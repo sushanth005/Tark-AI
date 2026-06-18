@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, ShieldCheck, Target, FileText } from 'lucide-react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-50 selection:bg-indigo-500/30 flex flex-col">
-      <Navbar />
-
+    <>
       {/* Hero Section */}
-      <main className="relative overflow-hidden">
+      <main className="flex-1 relative overflow-hidden">
         {/* Background Gradients */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none"></div>
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[100px] rounded-full pointer-events-none"></div>
@@ -69,8 +65,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </>
   );
 }

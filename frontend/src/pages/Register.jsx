@@ -3,9 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -30,9 +27,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-50 selection:bg-indigo-500/30 flex flex-col relative overflow-hidden">
-      <Navbar />
-
+    <>
       {/* Background Gradients */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/20 blur-[120px] rounded-full pointer-events-none"></div>
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-600/10 blur-[100px] rounded-full pointer-events-none"></div>
@@ -86,7 +81,6 @@ export default function Register() {
           </div>
         </div>
       </div>
-      <Footer />
-    </div>
+    </>
   );
 }

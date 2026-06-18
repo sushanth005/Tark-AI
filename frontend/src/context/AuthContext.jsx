@@ -38,17 +38,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center font-sans">
-        <div className="animate-spin w-12 h-12 border-4 border-slate-800 border-t-indigo-500 rounded-full mb-4"></div>
-        <p className="text-slate-400 font-medium">Loading Application Data...</p>
-      </div>
-    );
-  }
-
   return (
-    <AuthContext.Provider value={{ token, setToken, user, setUser, logout }}>
+    <AuthContext.Provider value={{ token, setToken, user, setUser, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

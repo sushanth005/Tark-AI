@@ -6,8 +6,6 @@ import html2pdf from 'html2pdf.js';
 import { RadialBarChart, RadialBar, PolarAngleAxis } from 'recharts';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 export default function History() {
   const { token } = useContext(AuthContext);
@@ -94,9 +92,7 @@ export default function History() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 font-sans text-slate-50 selection:bg-indigo-500/30 flex flex-col">
-      <Navbar />
-
+    <>
       <main className="flex-1 max-w-7xl mx-auto mt-8 w-full grid grid-cols-1 lg:grid-cols-3 gap-8 px-4 sm:px-6 mb-12 relative z-10">
 
         {/* Historical Logs List */}
@@ -322,7 +318,6 @@ export default function History() {
           </div>
         </div>
       )}
-      <Footer />
-    </div>
+    </>
   );
 }
