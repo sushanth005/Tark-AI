@@ -13,6 +13,7 @@ export default function History() {
   const { token } = useContext(AuthContext);
   const [result, setResult] = useState(null);
   const [history, setHistory] = useState([]);
+  const [loadingHistory, setLoadingHistory] = useState(true);
   const [coverLetter, setCoverLetter] = useState('');
   const [generatingCL, setGeneratingCL] = useState(false);
   const [showCLModal, setShowCLModal] = useState(false);
@@ -22,12 +23,15 @@ export default function History() {
 
   const fetchHistory = useCallback(async () => {
     try {
+      setLoadingHistory(true);
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/scan`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setHistory(res.data);
     } catch (err) {
       console.error('Error fetching history:', err);
+    } finally {
+      setLoadingHistory(false);
     }
   }, [token]);
 
@@ -104,24 +108,33 @@ export default function History() {
             Assessment History
           </h4>
           <div className="space-y-3 max-h-[650px] overflow-y-auto pr-2 custom-scrollbar">
-            {history.map((scan, idx) => (
-              <div key={idx} className={`flex justify-between items-center p-4 bg-slate-950/50 border ${result?._id === scan._id ? 'border-indigo-500 shadow-lg shadow-indigo-500/20' : 'border-slate-800/80'} rounded-2xl hover:border-indigo-500/50 hover:bg-slate-800/50 transition cursor-pointer`} onClick={() => { setResult(scan); setCoverLetter(scan.coverLetter || ''); }}>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-slate-800/80 flex items-center justify-center">
-                    <FileText size={18} className="text-slate-400" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-200 max-w-[120px] sm:max-w-[150px] truncate">{scan.filename}</p>
-                    <p className="text-xs text-slate-500 mt-0.5">{new Date(scan.createdAt).toLocaleDateString()}</p>
-                  </div>
-                </div>
-                <div className="text-base font-bold text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-lg">{scan.overallScore}%</div>
+            {loadingHistory ? (
+              <div className="flex flex-col items-center justify-center py-12 text-slate-400">
+                <div className="animate-spin w-8 h-8 border-4 border-slate-800 border-t-indigo-500 rounded-full mb-4"></div>
+                <p className="text-sm font-medium">Loading history...</p>
               </div>
-            ))}
-            {history.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-sm text-slate-500">No historical data logs recorded yet</p>
-              </div>
+            ) : (
+              <>
+                {history.map((scan, idx) => (
+                  <div key={idx} className={`flex justify-between items-center p-4 bg-slate-950/50 border ${result?._id === scan._id ? 'border-indigo-500 shadow-lg shadow-indigo-500/20' : 'border-slate-800/80'} rounded-2xl hover:border-indigo-500/50 hover:bg-slate-800/50 transition cursor-pointer`} onClick={() => { setResult(scan); setCoverLetter(scan.coverLetter || ''); }}>
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-slate-800/80 flex items-center justify-center">
+                        <FileText size={18} className="text-slate-400" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-200 max-w-[120px] sm:max-w-[150px] truncate">{scan.filename}</p>
+                        <p className="text-xs text-slate-500 mt-0.5">{new Date(scan.createdAt).toLocaleDateString()}</p>
+                      </div>
+                    </div>
+                    <div className="text-base font-bold text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-lg">{scan.overallScore}%</div>
+                  </div>
+                ))}
+                {history.length === 0 && (
+                  <div className="text-center py-12">
+                    <p className="text-sm text-slate-500">No historical data logs recorded yet</p>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
