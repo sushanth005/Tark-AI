@@ -248,4 +248,16 @@ ${scan.resumeText}`;
   }
 });
 
+// 4. DELETE: Delete a specific scan record
+router.delete('/:scanId', authMiddleware, async (req, res) => {
+  try {
+    const scan = await Scan.findOneAndDelete({ _id: req.params.scanId, userId: req.user.id });
+    if (!scan) return res.status(404).json({ error: 'Scan record not found.' });
+    return res.status(200).json({ message: 'Scan record deleted successfully.' });
+  } catch (error) {
+    console.error('Delete Scan Error:', error);
+    return res.status(500).json({ error: 'Failed to delete scan record.' });
+  }
+});
+
 module.exports = router;

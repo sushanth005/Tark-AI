@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef, useCallback } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { FileText, CheckCircle, XCircle, Download, PenTool, History as HistoryIcon } from 'lucide-react';
+import { FileText, CheckCircle, XCircle, Download, PenTool, History as HistoryIcon, Trash2 } from 'lucide-react';
 import html2pdf from 'html2pdf.js';
 import { RadialBarChart, RadialBar, PolarAngleAxis } from 'recharts';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
@@ -15,6 +15,8 @@ export default function History() {
   const [coverLetter, setCoverLetter] = useState('');
   const [generatingCL, setGeneratingCL] = useState(false);
   const [showCLModal, setShowCLModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [scanToDelete, setScanToDelete] = useState(null);
 
   const reportRef = useRef(null);
   const clRef = useRef(null);
@@ -51,6 +53,33 @@ export default function History() {
     };
 
     html2pdf().set(options).from(element).save();
+  };
+
+  const confirmDelete = (e, scanId) => {
+    e.stopPropagation();
+    setScanToDelete(scanId);
+    setShowDeleteModal(true);
+  };
+
+  const executeDelete = async () => {
+    if (!scanToDelete) return;
+    try {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/scan/${scanToDelete}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setHistory(history.filter(s => s._id !== scanToDelete));
+      if (result?._id === scanToDelete) {
+        setResult(null);
+        setCoverLetter('');
+      }
+      setShowDeleteModal(false);
+      setScanToDelete(null);
+    } catch (err) {
+      console.error('Error deleting scan:', err);
+      alert('Failed to delete history.');
+      setShowDeleteModal(false);
+      setScanToDelete(null);
+    }
   };
 
   const handleGenerateCL = async () => {
@@ -118,11 +147,16 @@ export default function History() {
                         <FileText size={18} className="text-slate-500 dark:text-slate-400" />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-200 max-w-[120px] sm:max-w-[150px] truncate">{scan.filename}</p>
+                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-200 max-w-[120px] sm:max-w-[150px] truncate" title={scan.jobRole || scan.filename}>{scan.jobRole || scan.filename}</p>
                         <p className="text-xs text-slate-500 mt-0.5">{new Date(scan.createdAt).toLocaleDateString()}</p>
                       </div>
                     </div>
-                    <div className="text-base font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-500/10 px-3 py-1 rounded-lg">{scan.overallScore}%</div>
+                    <div className="flex items-center gap-2">
+                      <div className="text-base font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-500/10 px-3 py-1 rounded-lg">{scan.overallScore}%</div>
+                      <button onClick={(e) => confirmDelete(e, scan._id)} className="p-1.5 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-500/10 rounded-md transition" title="Delete scan">
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </div>
                 ))}
                 {history.length === 0 && (
@@ -313,6 +347,36 @@ export default function History() {
                 className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:shadow-indigo-500/40 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Download size={16} /> Download DOCX
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/50 dark:bg-slate-950/80 backdrop-blur-sm p-4 animate-fade-in">
+          <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col animate-slide-up">
+            <div className="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-rose-50 dark:bg-rose-950/30">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-200 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-rose-100 dark:bg-rose-500/10 flex items-center justify-center text-rose-600 dark:text-rose-400">
+                  <Trash2 size={16} />
+                </div>
+                Confirm Deletion
+              </h3>
+              <button onClick={() => { setShowDeleteModal(false); setScanToDelete(null); }} className="text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition">
+                <XCircle size={24} />
+              </button>
+            </div>
+            <div className="p-6 bg-white dark:bg-slate-900">
+              <p className="text-slate-700 dark:text-slate-300">Are you sure you want to delete this assessment history? This action cannot be undone.</p>
+            </div>
+            <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex justify-end gap-3 bg-slate-50 dark:bg-slate-950/30">
+              <button onClick={() => { setShowDeleteModal(false); setScanToDelete(null); }} className="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition">
+                Cancel
+              </button>
+              <button onClick={executeDelete} className="px-5 py-2.5 text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 rounded-xl transition shadow-lg shadow-rose-500/30">
+                Delete
               </button>
             </div>
           </div>
