@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import HistoryPage from './pages/History';
+import MockInterview from './pages/MockInterview';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -47,6 +48,14 @@ function MainAppRoutes() {
               element={
                 <PrivateRoute>
                   <HistoryPage />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/mock-interview" 
+              element={
+                <PrivateRoute>
+                  <MockInterview />
                 </PrivateRoute>
               } 
             />

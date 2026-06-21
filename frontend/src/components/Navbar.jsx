@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { LayoutDashboard, History, LogOut, Sun, Moon } from 'lucide-react';
+import { LayoutDashboard, History, LogOut, Sun, Moon, Mic } from 'lucide-react';
 import logo from '../assets/logo.png';
 
 export default function Navbar() {
@@ -55,6 +55,9 @@ export default function Navbar() {
               </Link>
               <Link to="/history" className={`flex items-center gap-2 text-sm font-medium transition ${location.pathname === '/history' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'}`}>
                 <History size={16} /> History
+              </Link>
+              <Link to="/mock-interview" className={`flex items-center gap-2 text-sm font-medium transition ${location.pathname === '/mock-interview' ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'}`}>
+                <Mic size={16} /> AI Mock Interview
               </Link>
             </div>
           )}

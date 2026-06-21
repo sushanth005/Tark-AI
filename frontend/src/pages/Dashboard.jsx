@@ -1,15 +1,16 @@
 import { useState, useContext, useRef } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { UploadCloud, FileText, CheckCircle, XCircle, Download, PenTool, History as HistoryIcon } from 'lucide-react';
+import { UploadCloud, FileText, CheckCircle, XCircle, Download, PenTool, History as HistoryIcon, Mic } from 'lucide-react';
 import html2pdf from 'html2pdf.js';
 import { RadialBarChart, RadialBar, PolarAngleAxis } from 'recharts';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const { token } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [jobDescription, setJobDescription] = useState('');
   const [jobRole, setJobRole] = useState('');
@@ -197,6 +198,12 @@ export default function Dashboard() {
             <div className="space-y-6">
               {/* Floating Trigger Control Block */}
               <div className="flex justify-end gap-3">
+                <button
+                  onClick={() => navigate(`/mock-interview?scanId=${result._id}`)}
+                  className="flex items-center gap-2 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl text-sm font-medium shadow-sm transition border border-slate-200 dark:border-slate-700/50"
+                >
+                  <Mic size={16} className="text-indigo-600 dark:text-indigo-400" /> AI Mock Interview
+                </button>
                 <button
                   onClick={handleGenerateCL}
                   className="flex items-center gap-2 bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 px-4 py-2.5 rounded-xl text-sm font-medium shadow-sm transition border border-slate-200 dark:border-slate-700/50"

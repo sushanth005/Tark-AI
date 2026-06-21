@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
 const scanRoutes = require('./routes/scan'); // Import the scanner router
+const interviewRoutes = require('./routes/interview'); // AI Mock Interview router
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 // Routes Wiring
 app.use('/api/auth', authRoutes);
 app.use('/api/scan', scanRoutes); // This maps /api/scan/analyze to your scan router
+app.use('/api/interview', interviewRoutes); // AI Mock Interview routes
 
 // Database Connection
 const PORT = process.env.PORT || 5000;
