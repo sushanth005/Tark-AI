@@ -1,6 +1,6 @@
 # 🚀 ATS Resume Optimization Engine & Cover Letter Generator
 
-An enterprise-grade, full-stack application that analyzes resumes against target job descriptions using the Llama-3.1-8b-instant AI model (via Groq). It extracts structural data, scores ATS compatibility, identifies missing skills, and dynamically generates tailored cover letters.
+An enterprise-grade, full-stack application that analyzes resumes against target job descriptions using the Llama-3.1-8b-instant AI model (via Groq). It extracts structural data, scores ATS compatibility, identifies missing skills, dynamically generates tailored cover letters, and conducts real-time AI mock interviews based on the applicant's profile.
 
 ## 📌 Table of Contents
 - [Overview](#overview)
@@ -19,6 +19,7 @@ An enterprise-grade, full-stack application that analyzes resumes against target
 Job seekers struggle to get past automated Applicant Tracking Systems (ATS). This platform allows users to upload their PDF resume and target job description, receiving an uncompromising, granular ATS score and actionable rewrite suggestions. With the click of a button, it can also automatically generate a tailored DOCX cover letter based on the exact requirements of the job.
 
 ## ✨ Key Features
+- **Interactive AI Mock Interview**: Practice for your next interview with an AI interviewer that asks contextual questions tailored to your resume scan and job description.
 - **Granular ATS Scoring Engine**: Calculates precise scores broken down into ATS compatibility, recruiter readability, technical depth, and impact statements.
 - **AI-Powered Data Extraction**: Parses PDF resumes to automatically extract Name, Job Title, Contact Info, Experience, Education, Hard Skills, and Soft Skills.
 - **Actionable Structural Feedback**: Provides highly specific, point-by-point feedback.
@@ -76,7 +77,8 @@ A significant focus was placed on creating a premium visual aesthetic through a 
 5. **Results Generation**: The LLM responds with a strictly structured JSON payload detailing missing skills, rewrite suggestions, etc.
 6. **Dashboard Visualization**: React processes the JSON, rendering the analysis beautifully into radial graphs and dynamic lists.
 7. **Cover Letter Crafting**: A secondary AI pipeline is triggered, using the parsed data to write a tailored cover letter.
-8. **Export**: Users download their ATS report and cover letter.
+8. **AI Mock Interview**: Users can launch a real-time chat with an AI interviewer that asks contextual questions based on the candidate's specific profile and the job description, culminating in a feedback summary.
+9. **Export**: Users download their ATS report and cover letter.
 
 ## 📂 Project Structure
 ```
@@ -141,6 +143,7 @@ Your application should now be running on `http://localhost:5173`.
 ## 🔌 API Endpoints
 - **Auth**: `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`
 - **Scan**: `POST /api/scan/analyze`, `GET /api/scan/`, `POST /api/scan/generate-cover-letter/:scanId`
+- **Interview**: `POST /api/interview/chat`, `GET /api/interview/scan/:scanId`
 
 ## 🌍 Deployment
 For detailed instructions on how to push your code to GitHub and deploy the application using **Render** (Backend) and **Vercel** (Frontend), please see the **[Deployment Guide](DEPLOYMENT.md)**.
