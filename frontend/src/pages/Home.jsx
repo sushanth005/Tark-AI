@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Target, FileText } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Target, FileText, MessageSquare, History } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -63,6 +63,24 @@ export default function Home() {
               <h3 className="text-xl font-bold text-slate-900 dark:text-slate-200 mb-3">Instant Cover Letters</h3>
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
                 Generate highly persuasive, custom-tailored cover letters based on your analysis in seconds.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800/50 p-8 rounded-3xl backdrop-blur-sm shadow-sm dark:shadow-none hover:border-emerald-200 dark:hover:border-slate-700 transition animate-slide-up" style={{ animationDelay: '400ms' }}>
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-2xl flex items-center justify-center mb-6">
+                <MessageSquare size={24} />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-200 mb-3">AI Mock Interviews</h3>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                Practice your interview skills with our intelligent AI interviewer and get real-time feedback.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800/50 p-8 rounded-3xl backdrop-blur-sm shadow-sm dark:shadow-none hover:border-blue-200 dark:hover:border-slate-700 transition animate-slide-up" style={{ animationDelay: '500ms' }}>
+              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6">
+                <History size={24} />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-200 mb-3">Analysis History</h3>
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                Keep track of all your previous resume analyses, cover letters, and monitor your progress over time.
               </p>
             </div>
           </div>
